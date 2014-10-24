@@ -7,7 +7,7 @@ public class AirportGraph {
 	HashMap<String, Airport> airport_list = new HashMap<String, Airport>();
 
 	AirportGraph() {
-
+		//do nothing!
 	}
 
 	public void addConnection(String origin, String destination, int hrs) {
@@ -47,6 +47,18 @@ public class AirportGraph {
 			hrs=a.getHoursTo(destination);
 		}		
 		return hrs;
+	}
+	
+	public String[] getAirportsNStopsAway(String origin, int nStops){
+		String[] airpts = null;
+		//do stuff!
+		return airpts;
+	}
+	
+	public String getLongestPath(String origin){
+		String lgstPath=null;
+		//do stuff!
+		return lgstPath;
 	}
 
 }
