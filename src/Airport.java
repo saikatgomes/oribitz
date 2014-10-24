@@ -37,11 +37,13 @@ public class Airport {
 	}
 
 	public void print() {
-		System.out.println(name);
+		System.out.println("\tOrigin: "+name);
+		System.out.println("\t\tDestination: ");
 		for (int i = 0; i < connectionCount; i++) {
-			System.out.println("\n--> " + connections.get(i) + " : "
+			System.out.println("\t\t--> " + connections.get(i) + " : "
 					+ hours.get(i));
 		}
 	}
 
 }
+

@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
 
 public class flightTest {
 
@@ -14,9 +13,9 @@ public class flightTest {
 			System.exit(-1);
 		}
 
-		HashMap<String, String> airports = new HashMap<String, String>();
-
+		AirportGraph airport_list = new AirportGraph();
 		BufferedReader in;
+
 		try {
 			in = new BufferedReader(new FileReader(args[0]));
 			int lineCount = 0;
@@ -31,24 +30,14 @@ public class flightTest {
 							+ "]");
 					System.exit(-1);
 				}
-				String ap1=data[0];
-				String ap2=data[1];
-				String hrs=data[2];
-				if(airports.containsKey(ap1)){
-					airports.put(ap1, airports.get(ap1)+"|"+ap2);
-				}else{
-					airports.put(ap1, ap2);
-				}
-				System.out.println(data[0] + " --> " + data[1] + " = "
-						+ data[2]);
+				airport_list.addConnection(data[0], data[1],
+						Integer.valueOf(data[2]));
 			}
 			in.close();
+			airport_list.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-		System.out.println(airports.entrySet());
-
 	}
-
 }
