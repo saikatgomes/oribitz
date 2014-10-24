@@ -30,16 +30,22 @@ public class AirportGraph {
 			a.print();
 		}
 	}
-	
+
 	public int getDirectHours(String origin, String destination){
 		int hrs=-1;// can use Integer.MAX_VALUE to denote infinity
-
 		Airport a = airport_list.get(origin);
-		
+		if(a!=null){
+			hrs=a.getHoursTo(destination);
+		}				
+		return hrs;
+	}
+	
+	public int getShortestHours(String origin, String destination){
+		int hrs=-1;// can use Integer.MAX_VALUE to denote infinity
+		Airport a = airport_list.get(origin);
 		if(a!=null){
 			hrs=a.getHoursTo(destination);
 		}		
-		
 		return hrs;
 	}
 

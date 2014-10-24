@@ -34,6 +34,8 @@ public class flightTest {
 						Integer.valueOf(data[2]));
 			}
 
+			in.close();
+			
 			System.out.println(airport_list.getDirectHours("QQ", "K"));
 			System.out.println(airport_list.getDirectHours("O", "K"));
 			System.out.println(airport_list.getDirectHours("K", "O"));
@@ -42,7 +44,6 @@ public class flightTest {
 			System.out.println(airport_list.getDirectHours("A", "B"));
 			System.out.println(airport_list.getDirectHours("A", "X"));
 
-			in.close();
 			airport_list.print();
 
 		} catch (Exception e) {
