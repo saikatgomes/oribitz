@@ -29,7 +29,7 @@ public class Airport {
 
 	public int getHoursTo(String aName) {
 		int idx = connections.indexOf(aName);
-		int hrs = Integer.MAX_VALUE;
+		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
 		if (idx != -1) {
 			hrs = hours.get(idx);
 		}

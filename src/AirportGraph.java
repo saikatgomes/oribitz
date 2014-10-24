@@ -32,7 +32,13 @@ public class AirportGraph {
 	}
 	
 	public int getDirectHours(String origin, String destination){
-		int hrs=-1;
+		int hrs=-1;// can use Integer.MAX_VALUE to denote infinity
+
+		Airport a = airport_list.get(origin);
+		
+		if(a!=null){
+			hrs=a.getHoursTo(destination);
+		}		
 		
 		return hrs;
 	}

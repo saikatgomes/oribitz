@@ -33,8 +33,18 @@ public class flightTest {
 				airport_list.addConnection(data[0], data[1],
 						Integer.valueOf(data[2]));
 			}
+
+			System.out.println(airport_list.getDirectHours("QQ", "K"));
+			System.out.println(airport_list.getDirectHours("O", "K"));
+			System.out.println(airport_list.getDirectHours("K", "O"));
+			System.out.println(airport_list.getDirectHours("K", "H"));
+			System.out.println(airport_list.getDirectHours("K", "J"));
+			System.out.println(airport_list.getDirectHours("A", "B"));
+			System.out.println(airport_list.getDirectHours("A", "X"));
+
 			in.close();
 			airport_list.print();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
