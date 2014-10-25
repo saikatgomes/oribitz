@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -25,16 +26,6 @@ public class AirportGraph {
 		}
 	}
 
-	public void print() {
-		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
-				.iterator();
-		while (iterator.hasNext()) {
-			Entry<String, Airport> entry = iterator.next();
-			Airport a = (Airport) entry.getValue();
-			a.print();
-		}
-	}
-
 	public int getDirectHours(String origin, String destination) {
 		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
 		Airport a = airport_list.get(origin);
@@ -56,7 +47,12 @@ public class AirportGraph {
 	public List<String> getAirportsNStopsAway(String origin, int nStops) {
 		List<String> airportNamesList = new ArrayList<String>();
 		List<Airport> checkList = new ArrayList<Airport>();
-		checkList.add(airport_list.get(origin));
+		Airport oriAirport = airport_list.get(origin);
+		if (oriAirport == null) {
+			// this origin does not exist
+			return airportNamesList;
+		}
+		checkList.add(oriAirport);
 		airportNamesList.add(origin);
 		int hopCount = 0;
 		while (hopCount < nStops) {
@@ -89,6 +85,52 @@ public class AirportGraph {
 		String lgstPath = null;
 		// do stuff!
 		return lgstPath;
+	}
+
+	public void print() {
+		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
+				.iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Airport> entry = iterator.next();
+			Airport a = (Airport) entry.getValue();
+			a.print();
+		}
+	}
+
+	public class NextAirport {
+		Airport airpt;
+		int hours = -1;
+
+		NextAirport(Airport aAirport, int hrs) {
+			airpt = aAirport;
+			hours = hrs;
+		}
+	}
+
+	public class LeastHoursComparator implements Comparator<NextAirport> {
+		@Override
+		public int compare(NextAirport x, NextAirport y) {
+			if (x.hours < y.hours) {
+				return -1;
+			}
+			if (x.hours > y.hours) {
+				return 1;
+			}
+			return 0;
+		}
+	}
+
+	public class MostHoursComparator implements Comparator<NextAirport> {
+		@Override
+		public int compare(NextAirport x, NextAirport y) {
+			if (x.hours > y.hours) {
+				return -1;
+			}
+			if (x.hours < y.hours) {
+				return 1;
+			}
+			return 0;
+		}
 	}
 
 }

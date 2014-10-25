@@ -38,12 +38,11 @@ public class Airport {
 	}
 
 	public String[] getAllConnections() {
-
-		String[] ret = new String[connections.size()];
-		for (int idx = 0; idx < ret.length; idx++) {
-			ret[idx] = connections.get(idx);
+		String[] connectionList = new String[connections.size()];
+		for (int idx = 0; idx < connectionList.length; idx++) {
+			connectionList[idx] = connections.get(idx);
 		}
-		return ret;
+		return connectionList;
 	}
 
 	public void print() {
