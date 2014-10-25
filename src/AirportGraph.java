@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class AirportGraph {
@@ -27,15 +28,6 @@ public class AirportGraph {
 	}
 
 	public int getDirectHours(String origin, String destination) {
-		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
-		Airport a = airport_list.get(origin);
-		if (a != null) {
-			hrs = a.getHoursTo(destination);
-		}
-		return hrs;
-	}
-
-	public int getShortestHours(String origin, String destination) {
 		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
 		Airport a = airport_list.get(origin);
 		if (a != null) {
@@ -87,6 +79,19 @@ public class AirportGraph {
 		return lgstPath;
 	}
 
+
+	public int getShortestHours(String origin, String destination) {
+		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
+		Comparator<NextAirport> comparator = new LeastHoursComparator();
+		PriorityQueue<NextAirport> aptsList = new PriorityQueue<NextAirport>(100,comparator);
+		
+		Airport a = airport_list.get(origin);
+		if (a != null) {
+			hrs = a.getHoursTo(destination);
+		}
+		return hrs;
+	}
+	
 	public void print() {
 		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
 				.iterator();
