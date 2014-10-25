@@ -46,9 +46,31 @@ public class flightTest {
 			System.out.println(airport_list.getDirectHours("A", "B"));
 			System.out.println(airport_list.getDirectHours("A", "X"));
 
-			List<String> airpts = airport_list.getAirportsNStopsAway("A", 2);
-			List<String> airpts2 = airport_list.getAirportsNStopsAway("A", 3);
-			
+			List<String> airpts0 = airport_list.getAirportsNStopsAway("A", 0);
+			List<String> airpts1 = airport_list.getAirportsNStopsAway("A", 1);
+			List<String> airpts2 = airport_list.getAirportsNStopsAway("A", 2);
+			List<String> airpts3 = airport_list.getAirportsNStopsAway("A", 3);
+			List<String> airpts4 = airport_list.getAirportsNStopsAway("A", 4);
+			List<String> airpts5 = airport_list.getAirportsNStopsAway("A", 5);
+			List<String> airpts6 = airport_list.getAirportsNStopsAway("A", 6);
+			List<String> airpts7 = airport_list.getAirportsNStopsAway("A", 7);
+			List<String> airpts8 = airport_list.getAirportsNStopsAway("A", 8);
+			List<String> airpts9 = airport_list.getAirportsNStopsAway("A", 9);
+			List<String> airpts10 = airport_list.getAirportsNStopsAway("A", 10);
+			List<String> airpts11 = airport_list.getAirportsNStopsAway("A", 11);
+
+			System.out.println("A:0 -> "+airpts0);
+			System.out.println("A:1 -> "+airpts1);
+			System.out.println("A:2 -> "+airpts2);
+			System.out.println("A:3 -> "+airpts3);
+			System.out.println("A:4 -> "+airpts4);
+			System.out.println("A:5 -> "+airpts5);
+			System.out.println("A:6 -> "+airpts6);
+			System.out.println("A:7 -> "+airpts7);
+			System.out.println("A:8 -> "+airpts8);
+			System.out.println("A:9 -> "+airpts9);
+			System.out.println("A:10 -> "+airpts10);
+			System.out.println("A:11 -> "+airpts11);
 			
 			airport_list.print();
 

@@ -54,32 +54,35 @@ public class AirportGraph {
 	}
 
 	public List<String> getAirportsNStopsAway(String origin, int nStops) {
-		List<String> airpts = new ArrayList<String>();
+		List<String> airportNamesList = new ArrayList<String>();
 		List<Airport> checkList = new ArrayList<Airport>();
 		checkList.add(airport_list.get(origin));
-		airpts.add(origin);
+		airportNamesList.add(origin);
 		int hopCount = 0;
 		while (hopCount < nStops) {
 			hopCount++;
-			Airport[] s= new Airport[checkList.size()];
-			for(int k=0;k<s.length;k++){
-				s[k]=checkList.get(k);
+			Airport[] s = new Airport[checkList.size()];
+			for (int idx1 = 0; idx1 < s.length; idx1++) {
+				s[idx1] = checkList.get(idx1);
 			}
 			checkList.clear();
-			airpts.clear();
-			for (int i = 0; i < s.length; i++) {
-				Airport ap= s[i];
-				String[] s2 = ap.getAllConnections();
-				for (int j = 0; j < s2.length; j++) {
-					String nextAirport = airport_list.get(s2[j]).name;
-					if(airpts.indexOf(nextAirport)<0){
-						checkList.add(airport_list.get(s2[j]));
-						airpts.add(nextAirport);
+			airportNamesList.clear();
+			for (int idx2 = 0; idx2 < s.length; idx2++) {
+				Airport anAirport = s[idx2];
+				String[] airportNeightbors = anAirport.getAllConnections();
+				for (int idx3 = 0; idx3 < airportNeightbors.length; idx3++) {
+					String nextAirport = airport_list
+							.get(airportNeightbors[idx3]).name;
+					if (airportNamesList.indexOf(nextAirport) < 0) {
+						checkList
+								.add(airport_list.get(airportNeightbors[idx3]));
+						airportNamesList.add(nextAirport);
 					}
 				}
 			}
 		}
-		return airpts;
+		java.util.Collections.sort(airportNamesList);
+		return airportNamesList;
 	}
 
 	public String getLongestPath(String origin) {

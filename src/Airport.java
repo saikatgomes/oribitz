@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Airport {
+
 	public List<String> connections = new ArrayList<String>();
 	public List<Integer> hours = new ArrayList<Integer>();
 	public String name;
@@ -36,24 +37,22 @@ public class Airport {
 		return hrs;
 	}
 
+	public String[] getAllConnections() {
+
+		String[] ret = new String[connections.size()];
+		for (int idx = 0; idx < ret.length; idx++) {
+			ret[idx] = connections.get(idx);
+		}
+		return ret;
+	}
+
 	public void print() {
-		System.out.println("\tOrigin: "+name);
+		System.out.println("\tOrigin: " + name);
 		System.out.println("\t\tDestination: ");
 		for (int i = 0; i < connectionCount; i++) {
 			System.out.println("\t\t--> " + connections.get(i) + " : "
 					+ hours.get(i));
 		}
 	}
-	
-	public String[] getAllConnections(){
-		
-		String[] ret = new String[connections.size()];
-		for(int k=0;k<ret.length;k++){
-			ret[k]=connections.get(k);
-		}
-		return ret;
-		//return (String[]) connections.toArray();
-	}
 
 }
-
