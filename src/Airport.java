@@ -44,6 +44,16 @@ public class Airport {
 					+ hours.get(i));
 		}
 	}
+	
+	public String[] getAllConnections(){
+		
+		String[] ret = new String[connections.size()];
+		for(int k=0;k<ret.length;k++){
+			ret[k]=connections.get(k);
+		}
+		return ret;
+		//return (String[]) connections.toArray();
+	}
 
 }
 

@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.List;
 
 public class flightTest {
 
@@ -36,6 +37,7 @@ public class flightTest {
 
 			in.close();
 			
+			//TEST CASES
 			System.out.println(airport_list.getDirectHours("QQ", "K"));
 			System.out.println(airport_list.getDirectHours("O", "K"));
 			System.out.println(airport_list.getDirectHours("K", "O"));
@@ -44,6 +46,10 @@ public class flightTest {
 			System.out.println(airport_list.getDirectHours("A", "B"));
 			System.out.println(airport_list.getDirectHours("A", "X"));
 
+			List<String> airpts = airport_list.getAirportsNStopsAway("A", 2);
+			List<String> airpts2 = airport_list.getAirportsNStopsAway("A", 3);
+			
+			
 			airport_list.print();
 
 		} catch (Exception e) {
