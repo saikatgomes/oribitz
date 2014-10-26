@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +10,19 @@ public class flightTest {
 	final static boolean DO_TESTS = true;
 
 	/**
-	 * Saikat Gomes
+	 * @author 		Saikat Gomes
+	 * Email: 		saikatgomes@gmail.com
+	 * Description: This is the main execution point to read the input file and
+	 * 				created the output file in the required format.
 	 * 
-	 * @param args
+	 * @param args[0]	flights file ex: flights.txt
+	 * @param args[1]	task file ex: tasks.txt
+	 * @throws IOException 
+	 * @throws NumberFormatException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		if (args.length != 2) {
+			//Usage error.
 			System.out.println("ERROR: (usage) flightTest "
 					+ "<flights-file> <task-file>");
 			System.exit(-1);
@@ -23,6 +32,7 @@ public class flightTest {
 		BufferedReader in;
 
 		try {
+			//read flight list file
 			in = new BufferedReader(new FileReader(args[0]));
 			int lineCount = 0;
 			while (in.ready()) {
@@ -73,8 +83,9 @@ public class flightTest {
 				airport_list.print();
 			}
 
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("ERROR: File Not Found!");
 			System.exit(-1);
 		}
 	}
