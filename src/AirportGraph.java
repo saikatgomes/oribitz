@@ -106,7 +106,8 @@ public class AirportGraph {
 			if (justSeen.compareTo(origin) == 0) {
 				if (anAirport.hours > info.getHours()) {
 					anAirport.path.add(justSeen);
-					info.setInfo(anAirport.path.toString(), anAirport.hours);
+					//info.setInfo(anAirport.path.toString(), anAirport.hours);
+					info.setInfo(listToString(anAirport.path), anAirport.hours);
 				}
 			} else {
 				addToQWithList(origin, justSeen, anAirport.path,
@@ -254,7 +255,18 @@ public class AirportGraph {
 			return 0;
 		}
 	}
-
+	
+	public String listToString(List<String> aList){
+		String outString="";
+		for(int i=0;i<aList.size();i++){
+			outString+=aList.get(i);
+			if(i<aList.size()-1){
+				outString+=",";
+			}
+		}		
+		return outString;
+	}
+	
 	public void print() {
 		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
 				.iterator();

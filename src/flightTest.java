@@ -2,27 +2,30 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class flightTest {
 
-	final static boolean DO_TESTS = true;
+	final static boolean DO_TESTS = false;
 
 	/**
-	 * @author 		Saikat Gomes
-	 * Email: 		saikatgomes@gmail.com
-	 * Description: This is the main execution point to read the input file and
-	 * 				created the output file in the required format.
+	 * @author Saikat Gomes Email: saikatgomes@gmail.com Description: This is
+	 *         the main execution point to read the input file and created the
+	 *         output file in the required format.
 	 * 
-	 * @param args[0]	flights file ex: flights.txt
-	 * @param args[1]	task file ex: tasks.txt
-	 * @throws IOException 
-	 * @throws NumberFormatException 
+	 * @param args
+	 *            [0] flights file ex: flights.txt
+	 * @param args
+	 *            [1] task file ex: tasks.txt
+	 * @throws IOException
+	 * @throws NumberFormatException
 	 */
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException,
+			IOException {
 		if (args.length != 2) {
-			//Usage error.
+			// Usage error.
 			System.out.println("ERROR: (usage) flightTest "
 					+ "<flights-file> <task-file>");
 			System.exit(-1);
@@ -32,7 +35,7 @@ public class flightTest {
 		BufferedReader in;
 
 		try {
-			//read flight list file
+			// read flight list file
 			in = new BufferedReader(new FileReader(args[0]));
 			int lineCount = 0;
 			while (in.ready()) {
@@ -51,6 +54,31 @@ public class flightTest {
 			}
 			in.close();
 
+			in = new BufferedReader(new FileReader(args[1]));
+			PrintWriter writer = new PrintWriter("out/output.txt");
+			
+			String aLine = in.readLine();
+			String[] data = aLine.split(",");
+			PathInfo pathInformation = airport_list.getShortestHours(data[0],
+					data[1]);
+			System.out.println(pathInformation.getPath());
+			writer.println(pathInformation.getPath());
+			
+			aLine = in.readLine();
+			data = aLine.split(",");
+			List<String> listOfAirports = airport_list.getAirportsNStopsAway(
+					data[0], Integer.valueOf(data[1]));
+			System.out.println(listOfAirports.toString());
+			writer.println(listOfAirports.toString());
+			
+			aLine = in.readLine();
+			pathInformation = airport_list.getRoundTrip(aLine);
+			System.out.println(pathInformation.getPath());
+			writer.println(pathInformation.getPath());
+			
+			in.close();
+			writer.close();
+
 			// TEST CASES
 			if (DO_TESTS) {
 				String[] aptName = airport_list.getAirportNames();
@@ -60,7 +88,8 @@ public class flightTest {
 				for (int idx1 = 0; idx1 < aptName.length; idx1++) {
 					String start = aptName[idx1];
 					for (int idx2 = 1; idx2 < 5; idx2++) {
-						airpts = airport_list.getAirportsNStopsAway(start, idx2);
+						airpts = airport_list
+								.getAirportsNStopsAway(start, idx2);
 						System.out.println(aptName[idx1] + ":" + idx2 + " -> "
 								+ airpts);
 					}
