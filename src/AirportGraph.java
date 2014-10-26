@@ -79,36 +79,60 @@ public class AirportGraph {
 		return lgstPath;
 	}
 
-
 	public int getShortestHours(String origin, String destination) {
 		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
+		if (!airport_list.containsKey(origin)
+				|| !airport_list.containsKey(destination)) {
+			//Either origin or destination DNE
+			return -1;
+		}
 		Comparator<NextAirport> comparator = new LeastHoursComparator();
-		PriorityQueue<NextAirport> aptsList = new PriorityQueue<NextAirport>(100,comparator);
-		
-		Airport a = airport_list.get(origin);
-		if (a != null) {
-			hrs = a.getHoursTo(destination);
+		PriorityQueue<NextAirport> aptsList = new PriorityQueue<NextAirport>(
+				airport_list.size(), comparator);
+		List<String> alreadySeen = new ArrayList<String>();
+		String justSeen = origin;
+
+		addToQ(origin, "", 0, alreadySeen, aptsList, comparator);
+		while (justSeen.compareTo(destination) != 0) {
+			NextAirport aa = aptsList.poll();
+			justSeen = aa.name;
+			if (justSeen.compareTo(destination) == 0) {
+				System.out.println(aa.name + "--" + aa.hours + "--" + aa.path
+						+ justSeen);
+			}
+			addToQ(justSeen, aa.path, aa.hours, alreadySeen, aptsList,
+					comparator);
 		}
 		return hrs;
 	}
-	
-	public void print() {
-		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
-				.iterator();
-		while (iterator.hasNext()) {
-			Entry<String, Airport> entry = iterator.next();
-			Airport a = (Airport) entry.getValue();
-			a.print();
+
+	public void addToQ(String aptName, String aPath, int hrsTillNow,
+			List<String> alreadySeen, PriorityQueue<NextAirport> aptsList,
+			Comparator<NextAirport> comparator) {
+		alreadySeen.add(aptName);
+		Airport a = airport_list.get(aptName);
+		String[] connections = a.getAllConnections();
+		int[] hours = a.getAllHours();
+		aPath += aptName + ",";
+		for (int i = 0; i < a.connectionCount; i++) {
+			String nxtAptName = connections[i];
+			if (!alreadySeen.contains(nxtAptName)) {
+				NextAirport nxt = new NextAirport(connections[i], hours[i]
+						+ hrsTillNow, aPath);
+				aptsList.add(nxt);
+			}
 		}
 	}
 
 	public class NextAirport {
-		Airport airpt;
+		String name;
+		String path = "";
 		int hours = -1;
 
-		NextAirport(Airport aAirport, int hrs) {
-			airpt = aAirport;
+		NextAirport(String aName, int hrs, String aPath) {
+			name = aName;
 			hours = hrs;
+			path = aPath;
 		}
 	}
 
@@ -138,4 +162,13 @@ public class AirportGraph {
 		}
 	}
 
+	public void print() {
+		Iterator<Entry<String, Airport>> iterator = airport_list.entrySet()
+				.iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Airport> entry = iterator.next();
+			Airport a = (Airport) entry.getValue();
+			a.print();
+		}
+	}
 }

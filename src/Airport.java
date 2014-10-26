@@ -45,6 +45,14 @@ public class Airport {
 		return connectionList;
 	}
 
+	public int[] getAllHours() {
+		int[] hoursList = new int[hours.size()];
+		for (int idx = 0; idx < hoursList.length; idx++) {
+			hoursList[idx] = hours.get(idx);
+		}
+		return hoursList;
+	}
+
 	public void print() {
 		System.out.println("\tOrigin: " + name);
 		System.out.println("\t\tDestination: ");
