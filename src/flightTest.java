@@ -59,7 +59,8 @@ public class flightTest {
 			 * airport_list.getAirportsNStopsAway("Y", 5); List<String> airpts6
 			 * = airport_list.getAirportsNStopsAway("Y", 6); List<String>
 			 * airpts7 = airport_list.getAirportsNStopsAway("Y", 7);
-			 * List<String> airpts8 = airport_list.getAirportsNStopsAway("Y",
+			 * List<String> airpts8 = airport_list.getAirportsNSt
+			srgtest s;opsAway("Y",
 			 * 8); List<String> airpts9 =
 			 * airport_list.getAirportsNStopsAway("Y", 9); List<String> airpts10
 			 * = airport_list.getAirportsNStopsAway("Y", 10); List<String>
@@ -81,33 +82,59 @@ public class flightTest {
 			 * System.out.println("Y:10 -> " + airpts10);
 			 * System.out.println("Y:11 -> " + airpts11);
 			 */
-
-			int ans = airport_list.getShortestHours("A", "A");
+						
+			PathInfo ans = airport_list.getShortestHours("A", "A");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "B");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "C");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "D");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "E");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "F");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "G");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "H");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "I");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "J");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "K");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "L");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "M");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "N");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "O");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "P");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "Q");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "R");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "S");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "T");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "U");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "V");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "W");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "X");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "Y");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 			ans = airport_list.getShortestHours("A", "Z");
+			System.out.println(ans.getPath()+" -- "+ans.getHours());
 
 			airport_list.print();
 

@@ -2,11 +2,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class AirportGraph {
 
@@ -18,20 +16,20 @@ public class AirportGraph {
 
 	public void addConnection(String origin, String destination, int hrs) {
 		if (airport_list.containsKey(origin)) {
-			Airport a = airport_list.get(origin);
-			a.addConnection(destination, hrs);
+			Airport anAirport = airport_list.get(origin);
+			anAirport.addConnection(destination, hrs);
 		} else {
-			Airport a = new Airport(origin);
-			a.addConnection(destination, hrs);
-			airport_list.put(origin, a);
+			Airport anAirport = new Airport(origin);
+			anAirport.addConnection(destination, hrs);
+			airport_list.put(origin, anAirport);
 		}
 	}
 
 	public int getDirectHours(String origin, String destination) {
 		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
-		Airport a = airport_list.get(origin);
-		if (a != null) {
-			hrs = a.getHoursTo(destination);
+		Airport anAirport = airport_list.get(origin);
+		if (anAirport != null) {
+			hrs = anAirport.getHoursTo(destination);
 		}
 		return hrs;
 	}
@@ -49,14 +47,14 @@ public class AirportGraph {
 		int hopCount = 0;
 		while (hopCount < nStops) {
 			hopCount++;
-			Airport[] s = new Airport[checkList.size()];
-			for (int idx1 = 0; idx1 < s.length; idx1++) {
-				s[idx1] = checkList.get(idx1);
+			Airport[] setOfAirports = new Airport[checkList.size()];
+			for (int idx1 = 0; idx1 < setOfAirports.length; idx1++) {
+				setOfAirports[idx1] = checkList.get(idx1);
 			}
 			checkList.clear();
 			airportNamesList.clear();
-			for (int idx2 = 0; idx2 < s.length; idx2++) {
-				Airport anAirport = s[idx2];
+			for (int idx2 = 0; idx2 < setOfAirports.length; idx2++) {
+				Airport anAirport = setOfAirports[idx2];
 				String[] airportNeightbors = anAirport.getAllConnections();
 				for (int idx3 = 0; idx3 < airportNeightbors.length; idx3++) {
 					String nextAirport = airport_list
@@ -79,12 +77,19 @@ public class AirportGraph {
 		return lgstPath;
 	}
 
-	public int getShortestHours(String origin, String destination) {
-		int hrs = -1;// can use Integer.MAX_VALUE to denote infinity
+	public PathInfo getShortestHours(String origin, String destination) {
+		int hrs = 0;// can use Integer.MAX_VALUE to denote infinity
+		String path=origin;
+		
+		PathInfo info = new PathInfo(path,hrs);
+		
 		if (!airport_list.containsKey(origin)
 				|| !airport_list.containsKey(destination)) {
 			//Either origin or destination DNE
-			return -1;
+			info.setHours(-1);
+			return info;
+		}else if(origin.compareTo(destination)==0) {
+			return info;
 		}
 		Comparator<NextAirport> comparator = new LeastHoursComparator();
 		PriorityQueue<NextAirport> aptsList = new PriorityQueue<NextAirport>(
@@ -94,27 +99,28 @@ public class AirportGraph {
 
 		addToQ(origin, "", 0, alreadySeen, aptsList, comparator);
 		while (justSeen.compareTo(destination) != 0) {
-			NextAirport aa = aptsList.poll();
-			justSeen = aa.name;
+			NextAirport anAirport = aptsList.poll();
+			justSeen = anAirport.name;
 			if (justSeen.compareTo(destination) == 0) {
-				System.out.println(aa.name + "--" + aa.hours + "--" + aa.path
-						+ justSeen);
+				/*System.out.println(anAirport.name + "--" + anAirport.hours + "--" + anAirport.path
+						+ justSeen);*/
+				info.setInfo(anAirport.path+ justSeen, anAirport.hours);
 			}
-			addToQ(justSeen, aa.path, aa.hours, alreadySeen, aptsList,
+			addToQ(justSeen, anAirport.path, anAirport.hours, alreadySeen, aptsList,
 					comparator);
 		}
-		return hrs;
+		return info;
 	}
 
 	public void addToQ(String aptName, String aPath, int hrsTillNow,
 			List<String> alreadySeen, PriorityQueue<NextAirport> aptsList,
 			Comparator<NextAirport> comparator) {
 		alreadySeen.add(aptName);
-		Airport a = airport_list.get(aptName);
-		String[] connections = a.getAllConnections();
-		int[] hours = a.getAllHours();
+		Airport anAirport = airport_list.get(aptName);
+		String[] connections = anAirport.getAllConnections();
+		int[] hours = anAirport.getAllHours();
 		aPath += aptName + ",";
-		for (int i = 0; i < a.connectionCount; i++) {
+		for (int i = 0; i < anAirport.connectionCount; i++) {
 			String nxtAptName = connections[i];
 			if (!alreadySeen.contains(nxtAptName)) {
 				NextAirport nxt = new NextAirport(connections[i], hours[i]
@@ -170,5 +176,5 @@ public class AirportGraph {
 			Airport a = (Airport) entry.getValue();
 			a.print();
 		}
-	}
+	}	
 }
