@@ -5,8 +5,11 @@ import java.util.List;
 
 public class flightTest {
 
+	final static boolean DO_TESTS = true;
+
 	/**
 	 * Saikat Gomes
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -36,41 +39,39 @@ public class flightTest {
 				airport_list.addConnection(data[0], data[1],
 						Integer.valueOf(data[2]));
 			}
-
 			in.close();
 
 			// TEST CASES
+			if (DO_TESTS) {
+				String[] aptName = airport_list.getAirportNames();
+				List<String> airpts = new ArrayList<String>();
+				PathInfo ans = new PathInfo();
 
-			String[] aptName = airport_list.getAirportNames();
-			List<String> airpts = new ArrayList<String>();
-			PathInfo ans = new PathInfo();
-
-			for (int i = 0; i < aptName.length; i++) {
-				String s = aptName[i];
-				for (int j = 1; j < 5; j++) {
-					airpts = airport_list.getAirportsNStopsAway(s, j);
-					System.out.println(aptName[i] + ":" + j + " -> " + airpts);
+				for (int idx1 = 0; idx1 < aptName.length; idx1++) {
+					String start = aptName[idx1];
+					for (int idx2 = 1; idx2 < 5; idx2++) {
+						airpts = airport_list.getAirportsNStopsAway(start, idx2);
+						System.out.println(aptName[idx1] + ":" + idx2 + " -> "
+								+ airpts);
+					}
 				}
-			}
-
-			for (int i = 0; i < aptName.length; i++) {
-				for (int j = 0; j < aptName.length; j++) {
-					String s = aptName[i];
-					String d = aptName[j];
-					ans = airport_list.getShortestHours(s, d);
-					System.out.println(s + "-->" + d + " : " + ans.getPath()
-							+ " @ " + ans.getHours());
+				for (int idx1 = 0; idx1 < aptName.length; idx1++) {
+					for (int idx2 = 0; idx2 < aptName.length; idx2++) {
+						String start = aptName[idx1];
+						String destination = aptName[idx2];
+						ans = airport_list.getShortestHours(start, destination);
+						System.out.println(start + "-->" + destination + " : "
+								+ ans.getPath() + " @ " + ans.getHours());
+					}
 				}
+				for (int idx = 0; idx < aptName.length; idx++) {
+					String start = aptName[idx];
+					ans = airport_list.getRoundTrip(start);
+					System.out.println(start + " : " + ans.getPath() + " @ "
+							+ ans.getHours());
+				}
+				airport_list.print();
 			}
-
-			for (int i = 0; i < aptName.length; i++) {
-				String s = aptName[i];
-				ans = airport_list.getRoundTrip(s);
-				System.out.println(s + " : " + ans.getPath() + " @ "
-						+ ans.getHours());
-			}
-
-			airport_list.print();
 
 		} catch (Exception e) {
 			e.printStackTrace();

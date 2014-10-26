@@ -3,25 +3,25 @@ public class PathInfo {
 	private String path = "";
 	private int hours = -1;
 
-	PathInfo(String p, int h) {
-		setInfo(p, h);
+	PathInfo(String aPath, int hrs) {
+		setInfo(aPath, hrs);
 	}
 
 	PathInfo(String p) {
 		setInfo(p, -1);
 	}
 
-	PathInfo(int h) {
-		setInfo("", h);
+	PathInfo(int hrs) {
+		setInfo("", hrs);
 	}
 
 	PathInfo() {
 		setInfo("", -1);
 	}
 
-	public void setInfo(String p, int h) {
-		path = p;
-		hours = h;
+	public void setInfo(String aPath, int hrs) {
+		path = aPath;
+		hours = hrs;
 	}
 
 	public String getPath() {
@@ -31,12 +31,12 @@ public class PathInfo {
 	public int getHours() {
 		return hours;
 	}
-	public void setPath(String p) {
-		path=p;
+	public void setPath(String aPath) {
+		path=aPath;
 	}
 
-	public void setHours(int h) {
-		hours=h;
+	public void setHours(int hrs) {
+		hours=hrs;
 	}
 
 }

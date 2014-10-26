@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public class AirportGraph {
@@ -18,7 +20,7 @@ public class AirportGraph {
 	public String[] getAirportNames() {
 
 		Set<String> key = airport_list.keySet();
-		String[] aptNames =key.toArray(new String[key.size()]);		
+		String[] aptNames = key.toArray(new String[key.size()]);
 		return aptNames;
 	}
 
@@ -84,9 +86,13 @@ public class AirportGraph {
 									// infinity
 		List<String> path = new ArrayList<String>();
 		PathInfo info = new PathInfo(origin, hrs);
-		Comparator<NextAirportWithList> comparator = new MostHoursComparator();
-		PriorityQueue<NextAirportWithList> aptsList = new PriorityQueue<NextAirportWithList>(
-				airport_list.size(), comparator);
+		/*
+		 * Comparator<NextAirportWithList> comparator = new
+		 * MostHoursComparator(); PriorityQueue<NextAirportWithList> aptsList =
+		 * new PriorityQueue<NextAirportWithList>( airport_list.size(),
+		 * comparator);
+		 */
+		Queue<NextAirportWithList> aptsList = new LinkedList<NextAirportWithList>();
 
 		if (!airport_list.containsKey(origin)) {
 			// this origin does not exist
@@ -96,15 +102,8 @@ public class AirportGraph {
 
 		while (!aptsList.isEmpty()) {
 			NextAirportWithList anAirport = aptsList.poll();
-			// System.out.println(anAirport.path + "-->" + anAirport.name);
 			String justSeen = anAirport.name;
 			if (justSeen.compareTo(origin) == 0) {
-
-				/*
-				 * System.out.println(anAirport.path + "-->" + anAirport.name +
-				 * " @ " + anAirport.hours);
-				 */
-
 				if (anAirport.hours > info.getHours()) {
 					anAirport.path.add(justSeen);
 					info.setInfo(anAirport.path.toString(), anAirport.hours);
@@ -119,24 +118,23 @@ public class AirportGraph {
 
 	public void addToQWithList(String origin, String aptName,
 			List<String> aPath, int hrsTillNow,
-			PriorityQueue<NextAirportWithList> aptsList) {
+			Queue<NextAirportWithList> aptsList) {
 
 		Airport anAirport = airport_list.get(aptName);
 		String[] connections = anAirport.getAllConnections();
 		int[] hours = anAirport.getAllHours();
 
-		for (int i = 0; i < anAirport.connectionCount; i++) {
-			String nxtAptName = connections[i];
+		for (int idx = 0; idx < anAirport.connectionCount; idx++) {
+			String nxtAptName = connections[idx];
 			if (!aPath.contains(nxtAptName)
 					|| origin.compareTo(nxtAptName) == 0) {
 				List<String> aPath2 = new ArrayList<String>(aPath);
 				aPath2.add(aptName);
 				NextAirportWithList nxt = new NextAirportWithList(
-						connections[i], hours[i] + hrsTillNow, aPath2);
+						connections[idx], hours[idx] + hrsTillNow, aPath2);
 				aptsList.add(nxt);
 			}
 		}
-
 	}
 
 	// DONT TOUCH!
@@ -233,11 +231,11 @@ public class AirportGraph {
 
 	public class LeastHoursComparator implements Comparator<NextAirport> {
 		@Override
-		public int compare(NextAirport x, NextAirport y) {
-			if (x.hours < y.hours) {
+		public int compare(NextAirport apt1, NextAirport apt2) {
+			if (apt1.hours < apt2.hours) {
 				return -1;
 			}
-			if (x.hours > y.hours) {
+			if (apt1.hours > apt2.hours) {
 				return 1;
 			}
 			return 0;
@@ -246,11 +244,11 @@ public class AirportGraph {
 
 	public class MostHoursComparator implements Comparator<NextAirportWithList> {
 		@Override
-		public int compare(NextAirportWithList x, NextAirportWithList y) {
-			if (x.hours > y.hours) {
+		public int compare(NextAirportWithList apt1, NextAirportWithList apt2) {
+			if (apt1.hours > apt2.hours) {
 				return -1;
 			}
-			if (x.hours < y.hours) {
+			if (apt1.hours < apt2.hours) {
 				return 1;
 			}
 			return 0;
@@ -262,8 +260,8 @@ public class AirportGraph {
 				.iterator();
 		while (iterator.hasNext()) {
 			Entry<String, Airport> entry = iterator.next();
-			Airport a = (Airport) entry.getValue();
-			a.print();
+			Airport aAirport = (Airport) entry.getValue();
+			aAirport.print();
 		}
 	}
 }
