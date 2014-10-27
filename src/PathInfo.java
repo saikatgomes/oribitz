@@ -1,9 +1,16 @@
+/**
+ * @author 		Saikat Gomes 
+ * Email: 		saikatgomes@gmail.com 
+ * Description: Store the Path information
+ * 				List of Airport Traversed to reach this node
+ * 				Amount of Time taken to reach this node
+ */
 public class PathInfo {
 
 	private String path = "";
-	private int hours = -1;
+	private float hours = -1;
 
-	PathInfo(String aPath, int hrs) {
+	PathInfo(String aPath, float hrs) {
 		setInfo(aPath, hrs);
 	}
 
@@ -11,7 +18,7 @@ public class PathInfo {
 		setInfo(p, -1);
 	}
 
-	PathInfo(int hrs) {
+	PathInfo(float hrs) {
 		setInfo("", hrs);
 	}
 
@@ -19,7 +26,7 @@ public class PathInfo {
 		setInfo("", -1);
 	}
 
-	public void setInfo(String aPath, int hrs) {
+	public void setInfo(String aPath, float hrs) {
 		path = aPath;
 		hours = hrs;
 	}
@@ -28,14 +35,14 @@ public class PathInfo {
 		return path;
 	}
 
-	public int getHours() {
+	public float getHours() {
 		return hours;
 	}
 	public void setPath(String aPath) {
 		path=aPath;
 	}
 
-	public void setHours(int hrs) {
+	public void setHours(float hrs) {
 		hours=hrs;
 	}
 

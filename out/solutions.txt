@@ -1,3 +1,3 @@
 A,C,F,I,L,P,R,V,Y,Z
-[E, H, J, L, M, N, Q, T]
+E,H,J,L,M,N,Q,T
 M,Q,N,O,K,H,E,A,B,F,I,L,P,R,V,Y,Z,T,M
