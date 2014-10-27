@@ -1,1 +1,1 @@
-java -jar flights.jar $1 $2 $3
+java -jar flights.jar $1 $2
