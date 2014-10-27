@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 public class flightTest {
 
 	// Flag to do additional testing
-	final static boolean DO_TESTS = true;
+	final static boolean DO_TESTS = false;
 
 	/**
 	 * @author Saikat Gomes 
